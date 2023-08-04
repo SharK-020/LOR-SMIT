@@ -1,15 +1,14 @@
 const User = require("../models/userSchema");
 const jwt = require("jsonwebtoken");
+const Student = require("../models/studentSchema");
 require("dotenv").config();
 // Register
 
 exports.register = async (req, res, next) => {
 	try {
-		const { name, userType, department, email, password, passwordConfirm } =
-			req.body;
+		const { name, department, email, password, passwordConfirm } = req.body;
 		await User.create({
 			name,
-			userType,
 			department,
 			email,
 			password,
@@ -36,9 +35,23 @@ exports.login = async (req, res, next) => {
 			return res.status(400).json({ error: "Invalid Credentials" });
 		}
 
-		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+			expiresIn: "1d",
+		});
 		let userObj = user.toObject();
 		delete userObj.password;
+
+		if (userObj.userType === "student") {
+			const student = await Student.findOne({ userId: userObj._id });
+
+			if (student) {
+				userObj.isVerified = true;
+			} else {
+				userObj.isVerified = false;
+			}
+		} else {
+			userObj.isVerified = true;
+		}
 
 		res.status(200).json({ token, userObj });
 	} catch (err) {

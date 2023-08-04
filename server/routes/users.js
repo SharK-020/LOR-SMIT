@@ -13,17 +13,18 @@ router.patch(
 );
 router.patch("/:userId/approve/:lorId", verifyToken, lorController.response);
 router.post(
-	"/:userId/create",
+	"/:userId/create/:facultyId",
 	verifyToken,
 	isVerified,
 	userController.createLor
 );
-
 router.get(
 	"/find/:department",
 	verifyToken,
 	userController.findFacultyByDepartment
 );
+router.get("/find", verifyToken, userController.findFaculty);
+
 router.get("/:userId/lor", verifyToken, userController.getLor);
 
 module.exports = router;

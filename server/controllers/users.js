@@ -27,7 +27,8 @@ exports.updateInfo = async (req, res) => {
 			}
 
 			res.status(200).json({
-				message: "Student info updated successfully",
+				message: "Student updated successfully",
+				update: true,
 			});
 		} catch (err) {
 			res.status(500).json({ error: err.message });
@@ -41,10 +42,12 @@ exports.createLor = async (req, res) => {
 
 	if (role === "student") {
 		try {
+			const facultyId = req.params.facultyID;
 			const userId = req.params.userId;
-			const { facultyId, studentRequest } = req.body;
+			const { studentName, studentRequest } = req.body;
 
 			const lor = await Lor.create({
+				studentName,
 				studentId: userId,
 				facultyId,
 				studentRequest,
@@ -77,7 +80,19 @@ exports.findFacultyByDepartment = async (req, res) => {
 		res.status(500).json({ error: err.message });
 	}
 };
+exports.findFaculty = async (req, res) => {
+	try {
+		const faculty = await User.find({ userType: "faculty" });
 
+		if (!faculty) {
+			return res.status(404).json({ error: "No faculty found" });
+		}
+
+		res.status(200).json({ faculty });
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+};
 exports.getLor = async (req, res) => {
 	try {
 		const userId = req.params.userId;
@@ -88,10 +103,10 @@ exports.getLor = async (req, res) => {
 			lor = await Lor.find({ facultyId: userId });
 		}
 		if (!lor) {
-			return res.status(404).json({ error: "No LOR found" });
+			return res.status(404).json([]);
 		}
 
-		res.status(200).json({ lor });
+		res.status(200).json(lor);
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}

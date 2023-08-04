@@ -2,11 +2,16 @@ const mongoose = require("mongoose");
 
 const lorSchema = new mongoose.Schema(
 	{
+		studentName: {
+			type: String,
+			required: true,
+		},
 		studentId: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Student",
 			required: true,
 		},
+
 		facultyId: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
