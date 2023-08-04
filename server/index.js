@@ -3,13 +3,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const multer = require("multer");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const path = require("path");
 
 const authRoute = require("./routes/auth");
-const userRoute = require("./routes/users");
+const facultyRoute = require("./routes/faculty");
+const studentRoute = require("./routes/student");
 /* Middleware Configuration*/
 dotenv.config();
 const app = express();
@@ -25,7 +24,8 @@ app.use(cors());
 /* Routes */
 
 app.use("/auth", authRoute);
-app.use("/users", userRoute);
+app.use("/student", studentRoute);
+app.use("/faculty", facultyRoute);
 
 /* Database connection */
 

@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userSchema");
+const Student = require("../models/studentSchema");
 require("dotenv").config();
 exports.verifyToken = async (req, res, next) => {
 	try {
@@ -16,6 +17,18 @@ exports.verifyToken = async (req, res, next) => {
 		const verified = jwt.verify(token, process.env.JWT_SECRET);
 
 		req.user = await User.findById(verified.id);
+		next();
+	} catch (err) {
+		return res.status(401).json({ error: err });
+	}
+};
+
+exports.studentVerified = async (req, res, next) => {
+	try {
+		const student = await Student.findOne({ userId: req.user._id });
+		if (!student) {
+			return res.status(401).json({ error: "Student not verified" });
+		}
 		next();
 	} catch (err) {
 		return res.status(401).json({ error: err });

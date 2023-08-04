@@ -12,7 +12,7 @@ const studentSchema = new mongoose.Schema({
 		unique: true,
 	},
 	yearOfPassing: {
-		type: Number,
+		type: Date,
 		required: true,
 	},
 	greScore: {
