@@ -14,6 +14,20 @@ const userSchema = new mongoose.Schema({
 	},
 	department: {
 		type: String,
+		enum: [
+			"CSE",
+			"ECE",
+			"EEE",
+			"ME",
+			"CE",
+			"IT",
+			"CA",
+			"MANAGEMENT",
+			"MATHS",
+			"PHYSICS",
+			"CHEMISTRY",
+			"AI&DS",
+		],
 		required: [true, "Please tell us your department"],
 	},
 	email: {
@@ -23,12 +37,17 @@ const userSchema = new mongoose.Schema({
 		lowercase: true,
 		validate: [validator.isEmail, "Please provide a valid email"],
 	},
+	isVerified: {
+		type: Boolean,
+		default: false,
+	},
 	password: {
 		type: String,
 		required: [true, "Please provide a password"],
 		minlength: 8,
 		select: false,
 	},
+
 	passwordConfirm: {
 		type: String,
 		required: [true, "Please confirm your password"],

@@ -103,7 +103,7 @@ exports.findFaculty = async (req, res) => {
 			return res.status(404).json({ error: "No faculty found" });
 		}
 		faculty.sort(compare);
-		res.status(200).json({ faculty });
+		res.status(200).json({ faculty: faculty });
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}

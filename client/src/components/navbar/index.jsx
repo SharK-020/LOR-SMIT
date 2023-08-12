@@ -1,8 +1,8 @@
-import DesktopNav from "./DesktopNav";
+import Nav from "./Nav";
 const index = () => {
 	return (
-		<div className="h-[7vh] py-5 px-12">
-			<DesktopNav />
+		<div className="p-3 dark:bg-gray-800">
+			<Nav />
 		</div>
 	);
 };

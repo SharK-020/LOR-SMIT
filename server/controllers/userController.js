@@ -2,7 +2,7 @@ const Lor = require("../models/lorSchema");
 
 exports.getLor = async (req, res) => {
 	try {
-		const userId = req.params.userId;
+		const userId = req.user._id;
 		let lor;
 		if (req.user.userType === "student") {
 			lor = await Lor.find({ studentId: userId });

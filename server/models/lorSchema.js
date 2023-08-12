@@ -6,6 +6,10 @@ const lorSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		facultyName: {
+			type: String,
+			required: true,
+		},
 		studentId: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Student",

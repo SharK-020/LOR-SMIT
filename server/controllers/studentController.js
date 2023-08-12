@@ -5,7 +5,8 @@ exports.updateInfo = async (req, res) => {
 	const role = req.user.userType;
 	if (role === "student") {
 		try {
-			const userId = req.params.userId;
+			const userId = req.user._id;
+
 			const { registrationNumber, yearOfPassing, greScore } = req.body;
 
 			const student = Student.create({
@@ -16,10 +17,7 @@ exports.updateInfo = async (req, res) => {
 			});
 
 			if (student) {
-				await Student.findOneAndUpdate(
-					{ userId },
-					{ isVerified: true }
-				);
+				await User.findByIdAndUpdate(userId, { isVerified: true });
 			} else {
 				return res
 					.status(404)
@@ -44,9 +42,11 @@ exports.createLor = async (req, res) => {
 	if (role === "student") {
 		try {
 			const facultyId = req.params.facultyID;
+			const faculty = await User.findById(facultyId);
 			const { studentRequest } = req.body;
 
 			const lor = await Lor.create({
+				facultyName: faculty.name,
 				studentName: req.user.name,
 				studentId: req.user._id,
 				facultyId,
@@ -60,6 +60,7 @@ exports.createLor = async (req, res) => {
 			res.status(200).json({ message: "LOR created successfully" });
 		} catch (err) {
 			res.status(500).json({ error: err.message });
+			console.log(err);
 		}
 	} else {
 		return res.status(404).json({ error: "cannot perform operation" });

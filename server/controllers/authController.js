@@ -4,9 +4,13 @@ const Student = require("../models/studentSchema");
 require("dotenv").config();
 // Register
 
-exports.register = async (req, res, next) => {
+exports.register = async (req, res) => {
 	try {
 		const { name, department, email, password, passwordConfirm } = req.body;
+		const user = await User.findOne({ email });
+		if (user) {
+			return res.status(400).json({ error: "User already exists" });
+		}
 		await User.create({
 			name,
 			department,
