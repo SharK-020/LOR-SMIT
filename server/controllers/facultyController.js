@@ -27,7 +27,7 @@ const facultyResponse = async (req, res) => {
 			lor = await Lor.findByIdAndUpdate(lorId, {
 				hodId: hod._id,
 				facultyApproval,
-				status: "pending",
+				status: "Faculty Approved",
 			});
 			res.status(200).json({ message: "LOR Approved" });
 		} else {

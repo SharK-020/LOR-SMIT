@@ -23,7 +23,14 @@ const Faculty = () => {
 	return (
 		<div className=" min-h-screen p-4 grid grid-cols-1 md:grid-rows-3 xl:grid-cols-4 gap-3 bg-orange-100 dark:bg-white">
 			{lor.map((l, index) => (
-				<LorCard key={index} name={l.studentName} status={l.status} />
+				<LorCard
+					key={index}
+					name={l.studentName}
+					status={l.status}
+					type="faculty"
+					student={l.studentRequest}
+					id={l._id}
+				/>
 			))}
 		</div>
 	);

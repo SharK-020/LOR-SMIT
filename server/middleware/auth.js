@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userSchema");
 const Student = require("../models/studentSchema");
+
 require("dotenv").config();
 exports.verifyToken = async (req, res, next) => {
 	try {
@@ -20,7 +21,6 @@ exports.verifyToken = async (req, res, next) => {
 
 		next();
 	} catch (err) {
-		console.log(err);
 		return res.status(401).json({ error: err });
 	}
 };

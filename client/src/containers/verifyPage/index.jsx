@@ -1,36 +1,42 @@
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogout } from "../../state";
+
 const Index = () => {
+	const dispatch = useDispatch();
+
 	const token = useSelector((state) => state.token);
 	const [file, setFile] = useState(null);
+	const [registrationNumber, setRegistrationNumber] = useState(null);
+	const [greScore, setGreScore] = useState(null);
+	const [yearOfPassing, setYearOfPassing] = useState(null);
 
 	const upload = (e) => {
 		console.log(e);
 		setFile(e.target.files[0]);
 	};
-	const formData = new FormData();
-	formData.append("file", file);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
 			const formData = new FormData();
 			formData.append("file", file);
+			formData.append("registrationNumber", registrationNumber);
+			formData.append("greScore", greScore);
+			formData.append("yearOfPassing", yearOfPassing);
 
-			const Response = await fetch(
-				"http://localhost:3001/student/updateInfo",
-				{
-					method: "POST",
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-					body: formData,
-				}
-			);
-			alert("Request Sent");
-			console.log(Response);
+			await fetch("http://localhost:3001/student/updateInfo", {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				body: formData,
+			});
+
+			alert("You will be logged out for verification");
+			dispatch(setLogout());
 		} catch (err) {
 			alert("Something Went wrong");
 		}
@@ -52,6 +58,11 @@ const Index = () => {
 										type="number"
 										id="registrationNumber"
 										name="registrationNumber"
+										onChange={(e) =>
+											setRegistrationNumber(
+												e.target.value
+											)
+										}
 										className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-orange-600 focus:border-transparent"
 										placeholder="Your Registration Number"
 									/>
@@ -63,6 +74,9 @@ const Index = () => {
 										type="number"
 										id="greScore"
 										name="greScore"
+										onChange={(e) =>
+											setGreScore(e.target.value)
+										}
 										className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-orange-600 focus:border-transparent"
 										placeholder="GRE Score"
 									/>
@@ -78,6 +92,9 @@ const Index = () => {
 									className="block  rounded-r-lg border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-orange-600 focus:border-transparent"
 									id="yearOfPassing"
 									name="yearOfPassing"
+									onChange={(e) =>
+										setYearOfPassing(e.target.value)
+									}
 									type="date"
 								/>
 							</div>

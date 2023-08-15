@@ -40,7 +40,7 @@ const lorSchema = new mongoose.Schema(
 		},
 		status: {
 			type: String,
-			enum: ["Pending", "Approved", "Declined", "Initiated"],
+			enum: ["Faculty Approved", "Approved", "Declined", "Initiated"],
 			default: "Initiated",
 		},
 	},
