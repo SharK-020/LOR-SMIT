@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import LorCard from "../components/lor";
+import LorCard from "../../components/lor";
 
 const Student = () => {
 	const [lor, setLor] = useState([]);
