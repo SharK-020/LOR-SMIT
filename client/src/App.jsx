@@ -36,7 +36,10 @@ function App() {
 			if (user.userType === "admin") {
 				routes = (
 					<Routes>
-						<Route path="/" element={<HomePage />} />{" "}
+						<Route
+							path="/"
+							element={<HomePage userType={user.userType} />}
+						/>
 						<Route path="/login" element={<LoginPage />} />
 						<Route path="/signup" element={<SignupPage />} />
 						<Route path="*" element={<Navigate to="/" />} />
@@ -63,7 +66,10 @@ function App() {
 					<Routes>
 						<Route path="/login" element={<LoginPage />} />
 						<Route path="/signup" element={<SignupPage />} />
-						<Route path="/" element={<HomePage />} />
+						<Route
+							path="/"
+							element={<HomePage userType={user.userType} />}
+						/>
 						<Route path="/Lor" element={<RequestPage />} />
 						<Route path="/profile" element={<ProfilePage />} />
 						<Route path="*" element={<Navigate to="/" />} />

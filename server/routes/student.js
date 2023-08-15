@@ -11,7 +11,12 @@ router.get("/lor", verifyToken, userController.getLor);
 router.get("/faculty/:department", facultyController.findFacultyByDepartment);
 router.get("/faculty", facultyController.findFaculty);
 
-router.post("/updateInfo", verifyToken, studentController.updateInfo);
+router.post(
+	"/updateInfo",
+	verifyToken,
+	fileUpload({ createParentPath: true }),
+	studentController.updateInfo
+);
 router.post(
 	"/createLor/:facultyID",
 	verifyToken,

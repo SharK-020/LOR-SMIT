@@ -21,6 +21,7 @@ const Index = () => {
 				{
 					method: "POST",
 					headers: {
+						"content-type": "multipart/form-data",
 						Authorization: `Bearer ${token}`,
 					},
 					body: formData,

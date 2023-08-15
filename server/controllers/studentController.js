@@ -2,14 +2,13 @@ const Student = require("../models/studentSchema");
 const Lor = require("../models/lorSchema");
 const User = require("../models/userSchema");
 exports.updateInfo = async (req, res) => {
-	const role = req.user;
-	console.log(role);
+	const role = req.user.userType;
 	if (role === "student") {
 		try {
 			const userId = req.user._id;
 
 			const { registrationNumber, yearOfPassing, greScore } = req.body;
-			const file = req.files;
+			const file = req;
 			console.log(file);
 			// const student = Student.create({
 			// 	userId,
@@ -35,6 +34,7 @@ exports.updateInfo = async (req, res) => {
 			res.status(500).json({ error: err.message });
 		}
 	} else {
+		console.log(req.user);
 		return res.status(404).json({ error: "cannot perform operation" });
 	}
 };
