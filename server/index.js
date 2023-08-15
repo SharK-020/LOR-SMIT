@@ -14,6 +14,7 @@ const studentRoute = require("./routes/student");
 /* Middleware Configuration*/
 dotenv.config();
 const app = express();
+
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy());
