@@ -9,7 +9,9 @@ const Index = () => {
 	const [greScore, setGreScore] = useState(null);
 	const [yearOfPassing, setYearOfPassing] = useState(null);
 	const upload = (e) => {
-		setFile(e.target.files);
+		console.log(e)
+		setFile(e.target.files[0]);
+		
 	};
 
 	const formData = new FormData();
@@ -18,28 +20,48 @@ const Index = () => {
 	formData.append("greScore", greScore);
 	formData.append("yearOfPassing", yearOfPassing);
 
+	// const handleSubmit = async (e) => {
+	// 	// console.log(file);
+	// 	e.preventDefault();
+	// 	try {
+	// 		const Response = await fetch(
+	// 			`http://localhost:3001/student/updateInfo`,
+	// 			{
+	// 				method: "POST",
+	// 				headers: {
+	// 					"content-type": "multipart/form-data",
+	// 					Authorization: `Bearer ${token}`,
+	// 				},
+	// 				body: formData,
+	// 			}
+	// 		);
+	// 		alert("Request Sent");
+
+	// 		// console.log(Response);
+	// 	} catch (err) {
+	// 		alert("Something Went wrong");
+	// 	}
+	// };
 	const handleSubmit = async (e) => {
-		console.log(file[0]);
 		e.preventDefault();
 		try {
-			const Response = await fetch(
-				`http://localhost:3001/student/updateInfo`,
-				{
-					method: "POST",
-					headers: {
-						"content-type": "multipart/form-data",
-						Authorization: `Bearer ${token}`,
-					},
-					body: formData,
-				}
-			);
+			const formData = new FormData();
+			formData.append("file", file);
+	
+			const Response = await fetch("http://localhost:3001/student/updateInfo", {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				body: formData,
+			});
 			alert("Request Sent");
-
 			console.log(Response);
 		} catch (err) {
 			alert("Something Went wrong");
 		}
 	};
+	
 
 	return (
 		<div>
@@ -107,7 +129,7 @@ const Index = () => {
 								<input
 									className="block  rounded-r-lg border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-orange-600 focus:border-transparent"
 									id="proof"
-									name="proof"
+									name="file"
 									type="file"
 									onChange={upload}
 								/>
