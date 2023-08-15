@@ -8,7 +8,8 @@ exports.updateInfo = async (req, res) => {
 			const userId = req.user._id;
 			console.log(req.body);
 			const { registrationNumber, yearOfPassing, greScore } = req.body;
-			console.log(registrationNumber);
+			const file = req.files;
+			console.log(file);
 			// const student = Student.create({
 			// 	userId,
 			// 	registrationNumber,
