@@ -9,12 +9,11 @@ const path = require("path");
 const authRoute = require("./routes/auth");
 const facultyRoute = require("./routes/faculty");
 const studentRoute = require("./routes/student");
-const fileUpload = require("express-fileupload");
+
 
 /* Middleware Configuration*/
 dotenv.config();
 const app = express();
-app.use(fileUpload());
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy());
