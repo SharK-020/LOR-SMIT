@@ -55,19 +55,15 @@ const Foot = () => {
 					</div>
 					<div className="h-px mx-auto mt-4 rounded-full md:hidden w-11 "></div>
 					<div className="flex flex-col items-center justify-center flex-1 mt-7 md:mt-0 md:items-start md:pl-5">
-						<span className="">© 2023</span>
+						<span className="">
+							© 2023 Sikkim Manipal Institute of Technology
+						</span>
 						<span className="mt-7 md:mt-1">
 							Created by &nbsp;
 							<a
 								className="underline hover:text-primary-gray-20"
 								href="https://www.linkedin.com/in/crabiller/">
 								Kunal Sharma
-							</a>
-							&nbsp; and &nbsp;
-							<a
-								className="underline hover:text-primary-gray-20"
-								href="https://www.linkedin.com/in/crabiller/">
-								Anish Roy
 							</a>
 						</span>
 					</div>

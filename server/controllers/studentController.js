@@ -2,33 +2,36 @@ const Student = require("../models/studentSchema");
 const Lor = require("../models/lorSchema");
 const User = require("../models/userSchema");
 exports.updateInfo = async (req, res) => {
-	const role = req.user.userType;
+	const role = req.user;
+	console.log(role);
 	if (role === "student") {
 		try {
 			const userId = req.user._id;
 
 			const { registrationNumber, yearOfPassing, greScore } = req.body;
+			const file = req.files;
+			console.log(file);
+			// const student = Student.create({
+			// 	userId,
+			// 	registrationNumber,
+			// 	yearOfPassing,
+			// 	greScore,
+			// });
 
-			const student = Student.create({
-				userId,
-				registrationNumber,
-				yearOfPassing,
-				greScore,
-			});
-
-			if (student) {
-				await User.findByIdAndUpdate(userId, { isVerified: true });
-			} else {
-				return res
-					.status(404)
-					.json({ error: "cannot perform operation" });
-			}
+			// if (student) {
+			// 	await User.findByIdAndUpdate(userId, { isVerified: true });
+			// } else {
+			// 	return res
+			// 		.status(404)
+			// 		.json({ error: "cannot perform operation" });
+			// }
 
 			res.status(200).json({
 				message: "Student updated successfully",
 				update: true,
 			});
 		} catch (err) {
+			console.log(err);
 			res.status(500).json({ error: err.message });
 		}
 	} else {

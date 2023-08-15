@@ -7,7 +7,7 @@ const studentSchema = new mongoose.Schema({
 		required: true,
 	},
 	registrationNumber: {
-		type: String,
+		type: Number,
 		required: true,
 		unique: true,
 	},
@@ -17,6 +17,10 @@ const studentSchema = new mongoose.Schema({
 	},
 	greScore: {
 		type: Number,
+		required: true,
+	},
+	proof: {
+		type: String,
 		required: true,
 	},
 });

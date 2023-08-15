@@ -36,7 +36,9 @@ exports.login = async (req, res) => {
 
 		const isMatch = await user.correctPassword(password, user.password);
 		if (!isMatch) {
-			return res.status(400).json({ error: "Invalid Credentials" });
+			return res
+				.status(400)
+				.json({ error: "Invalid Credentials" }, { expiresIn: "30d" });
 		}
 
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
