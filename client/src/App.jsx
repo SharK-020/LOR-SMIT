@@ -13,6 +13,7 @@ import { useEffect } from "react";
 function App() {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user);
+	console.log(user);
 	let routes;
 	useEffect(() => {
 		if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -26,7 +27,7 @@ function App() {
 		if (!user.isVerified) {
 			routes = (
 				<Routes>
-					<Route path="/verify" element={<VerifyPage />} />{" "}
+					<Route path="/verify" element={<VerifyPage />} />
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/signup" element={<SignupPage />} />
 					<Route path="*" element={<Navigate to="/verify" />} />
