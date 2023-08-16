@@ -49,6 +49,10 @@ function App() {
 			} else if (user.userType === "hod") {
 				routes = (
 					<Routes>
+						<Route
+							path="/"
+							element={<HomePage userType={user.userType} />}
+						/>
 						<Route path="/login" element={<LoginPage />} />
 						<Route path="/signup" element={<SignupPage />} />
 						<Route path="*" element={<Navigate to="/" />} />

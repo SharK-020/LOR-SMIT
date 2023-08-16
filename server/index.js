@@ -9,7 +9,7 @@ const path = require("path");
 const authRoute = require("./routes/auth");
 const facultyRoute = require("./routes/faculty");
 const studentRoute = require("./routes/student");
-
+const adminRoute = require("./routes/admin");
 
 /* Middleware Configuration*/
 dotenv.config();
@@ -30,7 +30,7 @@ app.use("/assets", express.static(path.join(__dirname, "assets")));
 app.use("/auth", authRoute);
 app.use("/student", studentRoute);
 app.use("/faculty", facultyRoute);
-
+app.use("/admin", adminRoute);
 /* Database connection */
 
 const PORT = process.env.PORT || 6001;

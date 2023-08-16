@@ -8,6 +8,8 @@ exports.getLor = async (req, res) => {
 			lor = await Lor.find({ studentId: userId });
 		} else if (req.user.userType === "faculty") {
 			lor = await Lor.find({ facultyId: userId });
+		} else if (req.user.userType === "hod") {
+			lor = await Lor.find({ hodId: userId });
 		}
 		if (!lor) {
 			return res.status(404).json([]);

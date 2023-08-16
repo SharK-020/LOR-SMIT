@@ -23,6 +23,7 @@ const lorSchema = new mongoose.Schema(
 		},
 		hodId: {
 			type: mongoose.Schema.Types.ObjectId,
+			default: null,
 			ref: "User",
 		},
 		studentRequest: {

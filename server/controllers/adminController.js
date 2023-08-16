@@ -12,6 +12,8 @@ exports.createFaculty = async (req, res) => {
 				department,
 				passwordConfirm,
 			} = req.body;
+
+			console.log(req.body);
 			const user = await User.create({
 				name,
 				email,

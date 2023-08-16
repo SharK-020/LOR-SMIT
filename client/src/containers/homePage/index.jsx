@@ -7,7 +7,7 @@ const Index = ({ userType }) => {
 	let page;
 	if (userType === "admin") {
 		page = <Admin />;
-	} else if (userType === "faculty") {
+	} else if (userType === "faculty" || userType === "hod") {
 		page = <Faculty />;
 	} else {
 		page = <Student />;

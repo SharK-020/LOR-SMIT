@@ -5,6 +5,7 @@ import LorCard from "../../components/lor";
 const Faculty = () => {
 	const [lor, setLor] = useState([]);
 	const token = useSelector((state) => state.token);
+	const user = useSelector((state) => state.user);
 	useEffect(() => {
 		const fetchLor = async () => {
 			const res = await fetch("http://localhost:3001/student/lor/", {
@@ -27,7 +28,7 @@ const Faculty = () => {
 					key={index}
 					name={l.studentName}
 					status={l.status}
-					type="faculty"
+					type={user.userType}
 					student={l.studentRequest}
 					id={l._id}
 				/>
