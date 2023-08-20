@@ -63,7 +63,7 @@ const hodResponse = async (req, res) => {
 			if (!hodApproval) {
 				lor = await Lor.findByIdAndUpdate(lorId, {
 					hodApproval,
-					hodMessage,
+					facultyMessage,
 					status: "Declined",
 				});
 

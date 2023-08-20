@@ -1,15 +1,21 @@
+/* eslint-disable react/prop-types */
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const initialValues = {
-	studentRequest: "",
+	facultyApproval: false,
+	hodApproval: false,
+	facultyMessage: "",
 };
 const validationSchema = Yup.object().shape({
-	studentRequest: Yup.string().required("Remarks is Required"),
+	facultyMessage: Yup.string().required("Message is required"),
+	hodApproval: Yup.boolean().required("Approval is required"),
+	facultyApproval: Yup.boolean().required("Approval is required"),
 });
 
-// eslint-disable-next-line react/prop-types
-const Form = ({ visible, onClose, facultyId }) => {
+const Form = ({ visible, onClose, lorId }) => {
+	const navigate = useNavigate();
 	const token = useSelector((state) => state.token);
 	const { values, handleBlur, handleChange, handleSubmit, isSubmitting } =
 		useFormik({
@@ -18,11 +24,11 @@ const Form = ({ visible, onClose, facultyId }) => {
 			onSubmit: async (values, action) => {
 				try {
 					await fetch(
-						`http://localhost:3001/student/createLor/${facultyId}`,
+						`http://localhost:3001/faculty/response/${lorId}`,
 						{
-							method: "POST",
+							method: "PATCH",
 							headers: {
-								"content-type": "application/json",
+								"Content-Type": "application/json",
 								Authorization: `Bearer ${token}`,
 							},
 							body: JSON.stringify(values),
@@ -30,8 +36,9 @@ const Form = ({ visible, onClose, facultyId }) => {
 					);
 					action.setSubmitting(true);
 					action.resetForm();
-					alert("Request Sent");
+					alert("Declined");
 					onClose();
+					navigate("/fasdfasdf");
 				} catch (err) {
 					alert("Something Went wrong");
 				}
@@ -54,12 +61,12 @@ const Form = ({ visible, onClose, facultyId }) => {
 			<form
 				onSubmit={handleSubmit}
 				className="flex flex-col bg-white h-[30%] rounded-lg justify-evenly">
-				<label htmlFor="studentRequest"></label>
+				<label htmlFor="facultyMessage"></label>
 				<input
 					type="text"
-					name="studentRequest"
-					id="studentRequest"
-					value={values.studentRequest}
+					name="facultyMessage"
+					id="facultyMessage"
+					value={values.facultyMessage}
 					onChange={handleChange}
 					onBlur={handleBlur}
 					placeholder="Remarks"

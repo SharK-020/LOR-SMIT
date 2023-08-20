@@ -1,13 +1,25 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-const Index = ({ name, status, type, student, id }) => {
+import { useState } from "react";
+
+import Form from "./Form";
+
+const Index = ({ name, status, type, student, id, facultyMessage }) => {
 	const navigate = useNavigate();
 	const token = useSelector((state) => state.token);
+	const [visible, setVisible] = useState(false);
+	const handleOnClose = () => {
+		setVisible(false);
+	};
 	let content;
 	let fshow = true;
 	let hshow = true;
-	if (status === "Declined" || status === "Faculty Approved") {
+	if (
+		status === "Declined" ||
+		status === "Faculty Approved" ||
+		status === "Approved"
+	) {
 		fshow = false;
 	}
 	if (status === "Declined" || status === "Approved") {
@@ -41,9 +53,6 @@ const Index = ({ name, status, type, student, id }) => {
 		}
 	};
 
-	const decline = () => {
-		console.log("decline");
-	};
 	if (type === "faculty") {
 		content = (
 			<div>
@@ -75,7 +84,7 @@ const Index = ({ name, status, type, student, id }) => {
 						Approve
 					</button>
 					<button
-						onClick={decline}
+						onClick={() => setVisible(true)}
 						className="text-white  bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center  ">
 						Decline
 					</button>
@@ -84,7 +93,7 @@ const Index = ({ name, status, type, student, id }) => {
 		);
 	} else if (type === "hod") {
 		content = (
-			<div>
+			<div className={` p-5`}>
 				<div className="flex justify-between">
 					<h5 className="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
 						{name}
@@ -113,15 +122,34 @@ const Index = ({ name, status, type, student, id }) => {
 						Approve
 					</button>
 					<button
-						onClick={decline}
+						onClick={() => setVisible(true)}
 						className="text-white  bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center  ">
 						Decline
 					</button>
 				</div>
 			</div>
 		);
-	} else {
-		content = <div className="p-5"></div>;
+	} else if (type === "student") {
+		content = (
+			<div className={` p-5`}>
+				<div className="flex justify-between">
+					<h5 className="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
+						{name}
+					</h5>
+				</div>
+
+				<p className="font-normal text-gray-700 mb-3 dark:text-gray-400">
+					{status}
+				</p>
+
+				{status === "Declined" ? (
+					<p className="font-thin text-gray-700 mb-3 dark:text-gray-400">
+						<span className="font-bold">Faculty Message: </span>
+						{facultyMessage}
+					</p>
+				) : null}
+			</div>
+		);
 	}
 
 	return (
@@ -129,6 +157,7 @@ const Index = ({ name, status, type, student, id }) => {
 			<div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
 				<div className="p-5">{content}</div>
 			</div>
+			<Form visible={visible} onClose={handleOnClose} lorId={id} />
 		</div>
 	);
 };
