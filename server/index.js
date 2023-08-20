@@ -10,7 +10,6 @@ const authRoute = require("./routes/auth");
 const facultyRoute = require("./routes/faculty");
 const studentRoute = require("./routes/student");
 
-
 /* Middleware Configuration*/
 dotenv.config();
 const app = express();
@@ -35,12 +34,12 @@ app.use("/faculty", facultyRoute);
 const PORT = process.env.PORT || 6001;
 
 mongoose
-	.connect(process.env.MONGO_URI)
-	.then(() => {
-		app.listen(PORT, () => {
-			console.log(`Server is running on port ${PORT}`);
-		});
-	})
-	.catch((err) => {
-		console.log(err);
-	});
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
