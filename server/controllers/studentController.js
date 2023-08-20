@@ -1,34 +1,43 @@
 const Student = require("../models/studentSchema");
 const Lor = require("../models/lorSchema");
 const User = require("../models/userSchema");
+const path = require("path");
 exports.updateInfo = async (req, res) => {
 	const role = req.user.userType;
 	if (role === "student") {
 		try {
 			const userId = req.user._id;
-
 			const { registrationNumber, yearOfPassing, greScore } = req.body;
 			const file = req.files;
 			console.log(file);
-			// const student = Student.create({
-			// 	userId,
-			// 	registrationNumber,
-			// 	yearOfPassing,
-			// 	greScore,
-			// });
-
-			// if (student) {
-			// 	await User.findByIdAndUpdate(userId, { isVerified: true });
-			// } else {
-			// 	return res
-			// 		.status(404)
-			// 		.json({ error: "cannot perform operation" });
-			// }
-
-			res.status(200).json({
-				message: "Student updated successfully",
-				update: true,
+			const proof = `assets/students/${file.file.name}`;
+			const filePath = path.join(__dirname, `../${proof}`);
+			file.file.mv(filePath, (err) => {
+				if (err) {
+					return res.status(500).json({ error: err.message });
+				}
 			});
+			const student = Student.create({
+				userId,
+				registrationNumber,
+				yearOfPassing,
+				greScore,
+				proof,
+			});
+			if (student) {
+				const user = await User.findByIdAndUpdate(userId, {
+					isVerified: true,
+				});
+				return res.status(200).json({
+					user,
+					message: "Student updated successfully",
+					update: true,
+				});
+			} else {
+				return res
+					.status(404)
+					.json({ error: "cannot perform operation" });
+			}
 		} catch (err) {
 			console.log(err);
 			res.status(500).json({ error: err.message });

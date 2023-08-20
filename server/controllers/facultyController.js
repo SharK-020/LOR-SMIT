@@ -23,20 +23,33 @@ const facultyResponse = async (req, res) => {
 			const studentId = lor.studentId;
 			const student = await User.findById(studentId);
 			const dept = student.department;
-			const hod = await User.find({ department: dept, userType: "hod" });
-			lor = await Lor.findByIdAndUpdate(lorId, {
-				hodId: hod._id,
-				facultyApproval,
-				status: "pending",
+			const hod = await User.findOne({
+				department: dept,
+				userType: "hod",
 			});
-			res.status(200).json({ message: "LOR Approved" });
+
+			if (hod) {
+				console.log(hod);
+
+				lor = await Lor.findByIdAndUpdate(lorId, {
+					hodId: hod._id,
+					facultyApproval,
+					status: "Faculty Approved",
+				});
+
+				console.log(lor);
+				res.status(200).json({ message: "LOR Approved" });
+			} else {
+				return res.status(404).json({ error: "HOD not found" });
+			}
 		} else {
-			return res.status(404).json({ error: "cannot perform operation" });
+			return res.status(404).json({ error: "Cannot perform operation" });
 		}
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
 };
+
 const hodResponse = async (req, res) => {
 	try {
 		const lorId = req.params.lorId;
@@ -45,21 +58,22 @@ const hodResponse = async (req, res) => {
 		const { hodApproval, hodMessage } = req.body;
 
 		let lor = await Lor.findById(lorId);
-		if (hodId === lor.hodId) {
-			if (!facultyApproval) {
+
+		if (String(hodId) === String(lor.hodId)) {
+			if (!hodApproval) {
 				lor = await Lor.findByIdAndUpdate(lorId, {
 					hodApproval,
-					hodMessage,
+					facultyMessage,
 					status: "Declined",
 				});
 
 				return res.status(200).json({ message: "LOR Declined" });
 			}
 			lor = await Lor.findByIdAndUpdate(lorId, {
-				hodId: hod._id,
-				facultyApproval,
+				hodApproval,
 				status: "Approved",
 			});
+			res.status(200).json({ message: "LOR Approved" });
 		} else {
 			return res.status(404).json({ error: "cannot perform operation" });
 		}

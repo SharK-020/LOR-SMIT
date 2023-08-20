@@ -36,13 +36,11 @@ exports.login = async (req, res) => {
 
 		const isMatch = await user.correctPassword(password, user.password);
 		if (!isMatch) {
-			return res
-				.status(400)
-				.json({ error: "Invalid Credentials" }, { expiresIn: "30d" });
+			return res.status(400).json({ error: "Invalid Credentials" });
 		}
 
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-			expiresIn: "1d",
+			expiresIn: process.env.JWT_EXPIRE,
 		});
 		let userObj = user.toObject();
 		delete userObj.password;

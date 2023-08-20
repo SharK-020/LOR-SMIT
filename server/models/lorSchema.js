@@ -23,6 +23,7 @@ const lorSchema = new mongoose.Schema(
 		},
 		hodId: {
 			type: mongoose.Schema.Types.ObjectId,
+			default: null,
 			ref: "User",
 		},
 		studentRequest: {
@@ -40,7 +41,7 @@ const lorSchema = new mongoose.Schema(
 		},
 		status: {
 			type: String,
-			enum: ["Pending", "Approved", "Declined", "Initiated"],
+			enum: ["Faculty Approved", "Approved", "Declined", "Initiated"],
 			default: "Initiated",
 		},
 	},
