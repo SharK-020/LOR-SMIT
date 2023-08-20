@@ -3,10 +3,15 @@ import React from "react";
 import Modal from "./Modal";
 
 const Card = (props) => {
-  const [showModal, setshowModal] = React.useState(false);
-  const toggleModal = () => {
-    setshowModal(!showModal);
-  };
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   return (
     <div>
       <div
@@ -18,7 +23,7 @@ const Card = (props) => {
             <h1 className="text-xl pb-3 font-bold font-serif">{props.name}</h1>
             <button
               className="bg-orange-500 hover:bg-orange-600 mt-6 p-4 rounded-lg font-semibold"
-              onClick={toggleModal}
+              onClick={openModal}
             >
               Create
             </button>
@@ -26,7 +31,7 @@ const Card = (props) => {
         </div>
       </div>
       {/* <Modal onClose={toggleModal} visible={showModal} name={props.name} /> */}
-      <Modal onClose={toggleModal} visible={showModal} />
+      <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}/>
     </div>
   );
 };
