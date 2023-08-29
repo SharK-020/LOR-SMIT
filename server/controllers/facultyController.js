@@ -46,6 +46,7 @@ const facultyResponse = async (req, res) => {
 			return res.status(404).json({ error: "Cannot perform operation" });
 		}
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({ error: err.message });
 	}
 };
@@ -55,7 +56,7 @@ const hodResponse = async (req, res) => {
 		const lorId = req.params.lorId;
 		const hodId = req.user._id;
 
-		const { hodApproval, hodMessage } = req.body;
+		const { hodApproval, facultyMessage } = req.body;
 
 		let lor = await Lor.findById(lorId);
 
@@ -71,6 +72,7 @@ const hodResponse = async (req, res) => {
 			}
 			lor = await Lor.findByIdAndUpdate(lorId, {
 				hodApproval,
+				facultyMessage,
 				status: "Approved",
 			});
 			res.status(200).json({ message: "LOR Approved" });
@@ -78,6 +80,7 @@ const hodResponse = async (req, res) => {
 			return res.status(404).json({ error: "cannot perform operation" });
 		}
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({ error: err.message });
 	}
 };

@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { setLogout } from "../../state";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 const Nav = () => {
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user);
 	const logout = () => {
 		dispatch(setLogout());
 	};
@@ -26,23 +28,35 @@ const Nav = () => {
 					</svg>
 				</button>
 			</div>
-			<div className="hidden w-full navbar-menu lg:order-1 lg:block lg:w-2/5">
-				<Link
-					className="block mt-4 mr-10 text-blue-900 lg:inline-block lg:mt-0 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-white"
-					to="/">
-					Home
-				</Link>
-				<Link
-					className="block mt-4 mr-10 text-blue-900 lg:inline-block lg:mt-0 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-white"
-					to="/profile">
-					Profile
-				</Link>
-				<Link
-					className="block mt-4 text-blue-900 lg:inline-block lg:mt-0 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-white"
-					to="/Lor">
-					Request LOR
-				</Link>
-			</div>
+			{user.userType === "student" ? (
+				<div className="hidden w-full navbar-menu lg:order-1 lg:block lg:w-2/5">
+					<Link
+						className="block mt-4 mr-10 text-blue-900 lg:inline-block lg:mt-0 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-white"
+						to="/">
+						Home
+					</Link>
+
+					<Link
+						className="block mt-4 mr-10 text-blue-900 lg:inline-block lg:mt-0 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-white"
+						to="/profile">
+						Profile
+					</Link>
+
+					<Link
+						className="block mt-4 text-blue-900 lg:inline-block lg:mt-0 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-white"
+						to="/Lor">
+						Request LOR
+					</Link>
+				</div>
+			) : (
+				<div className="hidden w-full navbar-menu lg:order-1 lg:block lg:w-2/5">
+					<Link
+						className="block mt-4 mr-10 text-blue-900 lg:inline-block lg:mt-0 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-white"
+						to="/">
+						Home
+					</Link>
+				</div>
+			)}
 			<div className="hidden w-full navbar-menu lg:order-3 lg:block lg:w-2/5 lg:text-right">
 				<button
 					className="block mt-4  lg:inline-block lg:mt-0 bg-orange-500 hover:bg-orange-600 text-gray-800duration-200 py-1 px-2 rounded-lg"
