@@ -12,7 +12,7 @@ const Index = () => {
 		};
 		fetchFaculty();
 	}, []);
-	console.log(faculty);
+
 	return (
 		<div>
 			<Navbar />
