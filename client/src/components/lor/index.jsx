@@ -55,7 +55,7 @@ const Index = ({ name, status, type, student, id, facultyMessage }) => {
 
 	if (type === "faculty") {
 		content = (
-			<div>
+			<div className="p-5 h-[10rem]">
 				<div className="flex justify-between">
 					<h5 className="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
 						{name}
@@ -93,7 +93,7 @@ const Index = ({ name, status, type, student, id, facultyMessage }) => {
 		);
 	} else if (type === "hod") {
 		content = (
-			<div className={` p-5`}>
+			<div className={` h-[10rem] p-5`}>
 				<div className="flex justify-between">
 					<h5 className="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
 						{name}
@@ -131,7 +131,7 @@ const Index = ({ name, status, type, student, id, facultyMessage }) => {
 		);
 	} else if (type === "student") {
 		content = (
-			<div className={` p-5`}>
+			<div className={` p-5 h-[8rem]`}>
 				<div className="flex justify-between">
 					<h5 className="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
 						{name}
