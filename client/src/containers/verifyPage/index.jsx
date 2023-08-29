@@ -22,6 +22,7 @@ const Index = () => {
 		e.preventDefault();
 		try {
 			const formData = new FormData();
+			console.log(file);
 			formData.append("file", file);
 			formData.append("registrationNumber", registrationNumber);
 			formData.append("greScore", greScore);
