@@ -20,13 +20,15 @@ const Index = () => {
 						},
 					}
 				);
+
 				const studentData = await res.json();
-				setStudentData(await studentData);
+				console.log(studentData);
+				return studentData;
 			} catch (err) {
 				console.log(err);
 			}
 		};
-		StudentInfo();
+		setStudentData(StudentInfo());
 	}, []);
 
 	return (
@@ -94,11 +96,11 @@ const Index = () => {
 							<span className="font-bold ml-[13%] mr-[3%] text-white">
 								:
 							</span>
-							<span className="bg-white p-2 rounded-lg">
+							{/* <span className="bg-white p-2 rounded-lg">
 								{dayjs(Student.student.yearOfPassing).format(
 									"YYYY"
 								)}
-							</span>
+							</span> */}
 						</p>
 					</div>
 					<div className="my-1">
@@ -109,9 +111,9 @@ const Index = () => {
 							<span className="font-bold ml-[19%] mr-[3%] text-white">
 								:
 							</span>
-							<span className="bg-white p-2 rounded-lg">
+							{/* <span className="bg-white p-2 rounded-lg">
 								{Student.student.greScore}
-							</span>
+							</span> */}
 						</p>
 					</div>
 				</div>
