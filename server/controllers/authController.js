@@ -16,6 +16,7 @@ exports.register = async (req, res) => {
 			department,
 			email,
 			password,
+			confirmationCode: jwt.sign({ email }, process.env.JWT_SECRET),
 			passwordConfirm,
 		});
 		res.status(201).json({ message: "User created successfully" });
@@ -33,6 +34,9 @@ exports.login = async (req, res) => {
 		if (!user) {
 			return res.status(404).json({ error: "User not found" });
 		}
+		if(user.status === "pending" && user.userType === "student"){
+			return res.status(404).json({ error: "User not verified" });
+		};
 
 		const isMatch = await user.correctPassword(password, user.password);
 		if (!isMatch) {

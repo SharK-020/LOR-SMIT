@@ -9,7 +9,6 @@ exports.updateInfo = async (req, res) => {
 			const userId = req.user._id;
 			const { registrationNumber, yearOfPassing, greScore } = req.body;
 			const file = req.files;
-			console.log(file);
 			const proof = `assets/students/${file.file.name}`;
 			const filePath = path.join(__dirname, `../${proof}`);
 			file.file.mv(filePath, (err) => {
@@ -85,6 +84,8 @@ exports.getStudent = async (req, res) => {
 		const student = await Student.findOne({ userId: studentId });
 		const user = await User.findById(studentId);
 
+		console.log(studentId);
+
 		if (!user || !student) {
 			return res.status(404).json({ error: "Student not found" });
 		}
@@ -94,3 +95,4 @@ exports.getStudent = async (req, res) => {
 		res.status(500).json({ error: err.message });
 	}
 };
+

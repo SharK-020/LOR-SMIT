@@ -6,7 +6,7 @@ require("dotenv").config();
 exports.verifyToken = async (req, res, next) => {
 	try {
 		let token = req.headers["authorization"];
-
+		console.log(token);
 		if (!token) {
 			return res.status(401).json({ error: "Authentication Failed" });
 		}

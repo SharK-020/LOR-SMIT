@@ -16,7 +16,7 @@ const Index = () => {
 	return (
 		<div>
 			<Navbar />
-			<div className=" min-h-screen p-4 grid grid-cols-1 md:grid-rows-3 xl:grid-cols-4 gap-3  bg-orange-100 dark:bg-white">
+			<div className=" min-h-screen p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 bg-orange-100 dark:bg-white">
 				{faculty.map((fac, index) => {
 					return (
 						<UserCard

@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 const Index = () => {
 	const user = useSelector((state) => state.user);
 	const token = useSelector((state) => state.token);
-	const [Student, setStudentData] = useState({});
+	const [Student, setStudentData] = useState({ student: {}, user: {} });
 	useEffect(() => {
 		const StudentInfo = async () => {
 			try {
@@ -20,17 +20,17 @@ const Index = () => {
 						},
 					}
 				);
-
 				const studentData = await res.json();
-				console.log(studentData);
-				return studentData;
+				setStudentData(studentData);
 			} catch (err) {
-				console.log(err);
+				console.log("err");
 			}
 		};
-		setStudentData(StudentInfo());
+
+		StudentInfo();
 	}, []);
 
+	console.log(Student);
 	return (
 		<div>
 			<Navbar />
@@ -39,11 +39,9 @@ const Index = () => {
 					<div className="my-1">
 						<p className="text-lg py-2 text-[#1F2937] font-bold">
 							<span className="bg-orange-500 px-3 py-2 rounded-lg">
-								Name
+								Name:
 							</span>
-							<span className="font-bold ml-[24%] mr-[3%] text-white">
-								:
-							</span>
+						
 							<span className="bg-white p-2 rounded-lg">
 								{user.name}
 							</span>
@@ -54,9 +52,7 @@ const Index = () => {
 							<span className="bg-orange-500 px-3 py-2 rounded-lg">
 								Registration Number
 							</span>
-							<span className="font-bold ml-[5.2%] mr-[3%] text-white">
-								:
-							</span>
+		
 							<span className="bg-white p-2 rounded-lg">
 								{Student.student.registrationNumber}
 							</span>
@@ -67,9 +63,7 @@ const Index = () => {
 							<span className="bg-orange-500 px-3 py-2 rounded-lg">
 								Department
 							</span>
-							<span className="font-bold ml-[16.3%] mr-[3%] text-white">
-								:
-							</span>
+					
 							<span className="bg-white p-2 rounded-lg">
 								{user.department}
 							</span>
@@ -80,9 +74,7 @@ const Index = () => {
 							<span className="bg-orange-500 px-3 py-2 rounded-lg">
 								Email Id
 							</span>
-							<span className="font-bold ml-[21.4%] mr-[3%] text-white">
-								:
-							</span>
+							<span className="font-bold  text-white">:</span>
 							<span className="bg-white p-2 rounded-lg">
 								{user.email}
 							</span>
@@ -93,14 +85,12 @@ const Index = () => {
 							<span className="bg-orange-500 px-3 py-2 rounded-lg">
 								Year of Passing
 							</span>
-							<span className="font-bold ml-[13%] mr-[3%] text-white">
-								:
-							</span>
-							{/* <span className="bg-white p-2 rounded-lg">
+							<span className="font-bold  text-white">:</span>
+							<span className="bg-white p-2 rounded-lg">
 								{dayjs(Student.student.yearOfPassing).format(
 									"YYYY"
 								)}
-							</span> */}
+							</span>
 						</p>
 					</div>
 					<div className="my-1">
@@ -108,12 +98,10 @@ const Index = () => {
 							<span className="bg-orange-500 px-3 py-2 rounded-lg">
 								GRE Score
 							</span>
-							<span className="font-bold ml-[19%] mr-[3%] text-white">
-								:
-							</span>
-							{/* <span className="bg-white p-2 rounded-lg">
+							<span className="font-bold  text-white">:</span>
+							<span className="bg-white p-2 rounded-lg">
 								{Student.student.greScore}
-							</span> */}
+							</span>
 						</p>
 					</div>
 				</div>

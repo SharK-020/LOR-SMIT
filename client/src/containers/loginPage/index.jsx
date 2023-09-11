@@ -26,7 +26,7 @@ const Index = () => {
 
 					action.resetForm();
 					if (data.error) {
-						alert("Invalid Credentials");
+						alert(data.error);
 					} else {
 						dispatch(
 							setLogin({
