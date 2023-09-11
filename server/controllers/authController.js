@@ -1,5 +1,6 @@
 const User = require("../models/userSchema");
 const jwt = require("jsonwebtoken");
+const sendEmail = require('../utilities/Email')
 const Student = require("../models/studentSchema");
 require("dotenv").config();
 // Register
@@ -19,6 +20,13 @@ exports.register = async (req, res) => {
 			confirmationCode: jwt.sign({ email }, process.env.JWT_SECRET),
 			passwordConfirm,
 		});
+		const mailOptions ={
+			from: 'resourcemsg@outlook.com',
+			to: email,
+			subject: "Account activation link",
+			text: `Hello ${name},\n\nPlease verify your account by clicking the link: \nhttp://${req.headers.host}/api/auth/verify-email?token=${jwt.sign({ email }, process.env.JWT_SECRET)}\n`,
+		  };
+		  await sendEmail(mailOptions);
 		res.status(201).json({ message: "User created successfully" });
 	} catch (err) {
 		console.log(err.message);

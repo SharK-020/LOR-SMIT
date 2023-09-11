@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@sendgrid/mail": "^7.7.0",
-    "dayjs": "^1.11.9"
-  }
-}
