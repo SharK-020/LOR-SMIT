@@ -85,4 +85,11 @@ exports.login = async (req, res) => {
 
 exports.setStatus() = async (req, res) => {
 	const {code}=req.params;
+	const user = User.findOneAndUpdate({confirmationCode:code},{status:"active"});
+	if(user){
+		res.status(200).json({message:"User verified"});
+	}
+	else{
+		res.status(404).json({error:"User not found"});
+	}
 };
