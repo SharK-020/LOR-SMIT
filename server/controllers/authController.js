@@ -1,6 +1,6 @@
 const User = require("../models/userSchema");
 const jwt = require("jsonwebtoken");
-const sendEmail = require('../utilities/Email')
+const sendEmail = require("../utilities/Email");
 const Student = require("../models/studentSchema");
 require("dotenv").config();
 // Register
@@ -12,22 +12,29 @@ exports.register = async (req, res) => {
 		if (user) {
 			return res.status(400).json({ error: "User already exists" });
 		}
+		const confirmationCode = jwt.sign({ email }, process.env.JWT_SECRET);
 		await User.create({
 			name,
 			department,
 			email,
 			password,
-			confirmationCode: jwt.sign({ email }, process.env.JWT_SECRET),
+			confirmationCode,
 			passwordConfirm,
 		});
-		const mailOptions ={
-			from: 'resourcemsg@outlook.com',
+		console.log(email);
+		const mailOptions = {
+			from: "resourcemsg@outlook.com",
 			to: email,
 			subject: "Account activation link",
-			text: `Hello ${name},\n\nPlease verify your account by clicking the link: \nhttp://${req.headers.host}/api/auth/verify-email?token=${jwt.sign({ email }, process.env.JWT_SECRET)}\n`,
-		  };
-		  await sendEmail(mailOptions);
-		res.status(201).json({ message: "User created successfully" });
+			text: `Hello ${name},\n\nPlease verify your account by clicking the link: \nhttp://localhost:5173/verify/${confirmationCode}\n`,
+		};
+		sendEmail(mailOptions).then((result) => {
+			console.log(result);
+			res.status(201).json({
+				message:
+					"Please click the verification link sent to your email",
+			});
+		});
 	} catch (err) {
 		console.log(err.message);
 		res.status(500).json({ error: err.message });
@@ -42,9 +49,9 @@ exports.login = async (req, res) => {
 		if (!user) {
 			return res.status(404).json({ error: "User not found" });
 		}
-		if(user.status === "pending" && user.userType === "student"){
+		if (user.status === "pending" && user.userType === "student") {
 			return res.status(404).json({ error: "User not verified" });
-		};
+		}
 
 		const isMatch = await user.correctPassword(password, user.password);
 		if (!isMatch) {
@@ -52,7 +59,7 @@ exports.login = async (req, res) => {
 		}
 
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-			expiresIn:"1d",
+			expiresIn: "1d",
 		});
 		let userObj = user.toObject();
 		delete userObj.password;
@@ -74,4 +81,8 @@ exports.login = async (req, res) => {
 		console.log(err.message);
 		res.status(500).json({ error: err.message });
 	}
+};
+
+exports.setStatus() = async (req, res) => {
+	const {code}=req.params;
 };
