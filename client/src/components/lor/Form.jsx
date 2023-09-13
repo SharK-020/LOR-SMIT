@@ -57,7 +57,7 @@ const Form = ({ visible, onClose, lorId }) => {
 		<div
 			id="container"
 			onClick={handleOnClose}
-			className="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex justify-center items-center ">
+			className="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex justify-center items-center bg-gray-600 ">
 			<form
 				onSubmit={handleSubmit}
 				className="flex flex-col bg-white h-[30%] rounded-lg justify-evenly">

@@ -6,4 +6,5 @@ const router = express.Router();
 router.post("/register", authController.register);
 router.post("/login", authController.login);
 router.get("/checkToken", middleware.checkToken);
+router.put("/verify/:code", authController.setStatus);
 module.exports = router;

@@ -41,13 +41,21 @@ const userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
+	status:{
+		type: String,
+		default: "pending",
+		enum: ["pending", "active"],
+	},
 	password: {
 		type: String,
 		required: [true, "Please provide a password"],
 		minlength: 8,
 		select: false,
 	},
-
+	confirmationCode:{
+		type: String,
+		unique: true,
+	},
 	passwordConfirm: {
 		type: String,
 		required: [true, "Please confirm your password"],
@@ -57,6 +65,10 @@ const userSchema = new mongoose.Schema({
 			},
 			message: "Passwords are not the same",
 		},
+	},
+	image: {
+		type: String,
+		default: "https://res.cloudinary",
 	},
 });
 
