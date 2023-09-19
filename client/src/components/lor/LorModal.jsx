@@ -31,7 +31,18 @@ const LorModal = ({ modalIsOpen, closeModal, Student, User }) => {
 				style={customStyles}
 				contentLabel="Example Modal"
 				ariaHideApp={false}>
-				<h2 className="text-white text-2xl font-bold">Student Info</h2>
+				<div className="flex justify-between items-center">
+					<h2 className="text-white text-2xl font-bold">
+						Student Info
+					</h2>
+					<a
+						href={`http://localhost:3001/${Student.proof}`}
+						target="_blank"
+						className="mr-20 bg-orange-500 p-2 rounded-xl font-bold">
+						Mark Sheet
+					</a>
+				</div>
+
 				<button
 					onClick={closeModal}
 					className="absolute text-white top-1 right-1">

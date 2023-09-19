@@ -16,6 +16,11 @@ const lorSchema = new mongoose.Schema(
 			required: true,
 		},
 
+		registrationNumber: {
+			type: Number,
+			required: true,
+		},
+
 		facultyId: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
@@ -25,6 +30,24 @@ const lorSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			default: null,
 			ref: "User",
+		},
+		department: {
+			enum: [
+				"CSE",
+				"ECE",
+				"EEE",
+				"ME",
+				"CE",
+				"IT",
+				"CA",
+				"MANAGEMENT",
+				"MATHS",
+				"PHYSICS",
+				"CHEMISTRY",
+				"AI&DS",
+			],
+			type: String,
+			required: true,
 		},
 		studentRequest: {
 			type: String,

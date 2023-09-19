@@ -17,6 +17,7 @@ const facultyResponse = async (req, res) => {
 				lor = await Lor.findByIdAndUpdate(lorId, {
 					facultyApproval,
 					facultyMessage,
+
 					status: "Declined",
 				});
 
@@ -24,16 +25,12 @@ const facultyResponse = async (req, res) => {
 			}
 			const studentId = lor.studentId;
 			const student = await User.findById(studentId);
-			const userId = student.userId;
-			const user = await User.findById(userId);
 
 			const dept = student.department;
 			const hod = await User.findOne({
 				department: dept,
 				userType: "hod",
 			});
-
-			
 
 			if (hod) {
 				console.log(hod);
@@ -71,6 +68,7 @@ const hodResponse = async (req, res) => {
 				lor = await Lor.findByIdAndUpdate(lorId, {
 					hodApproval,
 					facultyMessage,
+
 					status: "Declined",
 				});
 

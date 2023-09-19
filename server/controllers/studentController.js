@@ -53,6 +53,7 @@ exports.createLor = async (req, res) => {
 	if (role === "student") {
 		try {
 			const facultyId = req.params.facultyID;
+			const student = await Student.findOne({ userId: req.user._id });
 			const faculty = await User.findById(facultyId);
 			const { studentRequest } = req.body;
 
@@ -60,6 +61,8 @@ exports.createLor = async (req, res) => {
 				facultyName: faculty.name,
 				studentName: req.user.name,
 				studentId: req.user._id,
+				registrationNumber: student.registrationNumber,
+				department: req.user.department,
 				facultyId,
 				studentRequest,
 			});
@@ -71,7 +74,6 @@ exports.createLor = async (req, res) => {
 			res.status(200).json({ message: "LOR created successfully" });
 		} catch (err) {
 			res.status(500).json({ error: err.message });
-			console.log(err);
 		}
 	} else {
 		return res.status(404).json({ error: "cannot perform operation" });
@@ -95,4 +97,3 @@ exports.getStudent = async (req, res) => {
 		res.status(500).json({ error: err.message });
 	}
 };
-
