@@ -41,11 +41,7 @@ const userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
-	status:{
-		type: String,
-		default: "pending",
-		enum: ["pending", "active"],
-	},
+
 	password: {
 		type: String,
 		required: [true, "Please provide a password"],

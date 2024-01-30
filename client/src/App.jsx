@@ -5,7 +5,6 @@ import SignupPage from "./containers/signupPage";
 import ProfilePage from "./containers/profilePage";
 import VerifyPage from "./containers/verifyPage";
 import RequestPage from "./containers/requestPage";
-import Account from "./containers/Account";
 import Analytics from "./containers/analyticsPage";
 import { setLogout, setTheme } from "./state";
 import { useDispatch } from "react-redux";
@@ -111,7 +110,7 @@ function App() {
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/signup" element={<SignupPage />} />
 
-				<Route path="/verify/:code" element={<Account />} />
+				{/* <Route path="/verify/:code" element={<Account />} /> */}
 
 				<Route path="*" element={<Navigate to="/login" />} />
 			</Routes>

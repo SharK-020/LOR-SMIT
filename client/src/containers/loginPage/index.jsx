@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { validationSchema, initialValues } from "./utils.jsx";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../../state";
+import { setLogin } from "../../state/index.js";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 const Index = () => {

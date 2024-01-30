@@ -6,7 +6,6 @@ import { setLogout } from "../../state";
 
 const Index = () => {
 	const dispatch = useDispatch();
-
 	const token = useSelector((state) => state.token);
 	const [file, setFile] = useState(null);
 	const [registrationNumber, setRegistrationNumber] = useState(null);
